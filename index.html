@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic One-Page Website</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333;
+      --card-bg: #f0f0f0;
+      --header-overlay: rgba(255, 255, 255, 0.3);
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #0f0f0f;
+      --text-color: #ffffff;
+      --card-bg: #1a1a1a;
+      --header-overlay: rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      scroll-behavior: smooth;
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #333;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    nav .links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+    }
+
+    #darkModeToggle {
+      background: none;
+      border: 1px solid white;
+      color: white;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    #darkModeToggle:hover {
+      background: #555;
+    }
+
+    header {
+      background: linear-gradient(var(--header-overlay), var(--header-overlay)),
+                  url('https://static.vecteezy.com/system/resources/thumbnails/056/387/312/small/mystery-dark-forest-photo.jpg') center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      flex-direction: column;
+      padding: 0 20px;
+      transition: background 0.5s;
+    }
+
+    section {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .services, .portfolio {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      width: 250px;
+      transition: transform 0.3s;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    form button {
+      padding: 0.7rem 1.5rem;
+      background: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #scrollTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #000;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+    }
+
+    img.thumb {
+      width: 200px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 3px solid white;
+      border-radius: 10px;
+    }
+
+    footer {
+      background: #111;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    footer a {
+      color: #0af;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    @media (max-width: 600px) {
+      nav .links {
+        flex-direction: column;
+      }
+
+      .services, .portfolio {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button id="darkModeToggle">🌙 Dark Mode</button>
+  </nav>
+
+  <header>
+    <h1>Welcome to My Web World 🌍</h1>
+    <p>One page, many features – now better than ever!</p>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I build sleek, modern websites using HTML, CSS & JavaScript.</p>
+  </section>
+
+  <section id="services">
+    <h2>Services</h2>
+    <div class="services">
+      <div class="card">🌐 Web Design</div>
+      <div class="card">📱 Mobile Apps</div>
+      <div class="card">🔒 Security Audit</div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <h2>Portfolio</h2>
+    <div class="portfolio">
+      <img class="thumb" src="https://picsum.photos/id/237/200" alt="Project 1" onclick="showLightbox(this.src)">
+      <img class="thumb" src="https://picsum.photos/id/238/200" alt="Project 2" onclick="showLightbox(this.src)">
+      <img class="thumb" src="https://picsum.photos/id/239/200" alt="Project 3" onclick="showLightbox(this.src)">
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form onsubmit="return validateForm()">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <div id="scrollTop" onclick="scrollToTop()">⬆️</div>
+
+  <div id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Zoomed Image">
+  </div>
+
+  <footer>
+    <p>Made with 💖 by You</p>
+    <p>
+      <a href="#">GitHub</a> |
+      <a href="#">LinkedIn</a> |
+      <a href="#">Twitter</a>
+    </p>
+  </footer>
+
+  <script>
+    window.onscroll = () => {
+      document.getElementById("scrollTop").style.display =
+        window.scrollY > 200 ? "block" : "none";
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateForm() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+      if (!name || !email || !message) {
+        alert("Please fill in all fields.");
+        return false;
+      }
+      alert("Message sent! 🚀");
+      return false;
+    }
+
+    function showLightbox(src) {
+      const lightbox = document.getElementById("lightbox");
+      document.getElementById("lightbox-img").src = src;
+      lightbox.style.display = "flex";
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+
+    document.getElementById("darkModeToggle").addEventListener("click", () => {
+      const root = document.documentElement;
+      const currentTheme = root.getAttribute("data-theme");
+
+      if (currentTheme === "dark") {
+        root.setAttribute("data-theme", "light");
+        document.getElementById("darkModeToggle").textContent = "🌙 Dark Mode";
+      } else {
+        root.setAttribute("data-theme", "dark");
+        document.getElementById("darkModeToggle").textContent = "☀️ Light Mode";
+      }
+    });
+  </script>
+</body>
+</html>
